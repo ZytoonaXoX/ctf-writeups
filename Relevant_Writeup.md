@@ -222,3 +222,4 @@ After obtaining `NT AUTHORITY\SYSTEM`, the administrator/root flag could be read
 ```cmd
 type C:\Users\Administrator\Desktop\root.txt
 
+
