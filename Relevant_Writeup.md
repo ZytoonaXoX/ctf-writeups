@@ -226,4 +226,3 @@ type C:\Users\Administrator\Desktop\root.txt
 ---
 
 type C:\Users\Administrator\Desktop\root.txt
-```
