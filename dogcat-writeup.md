@@ -1,7 +1,7 @@
 # TryHackMe — dogcat Writeup
 **By:** Zytoona  
 **Room:** [dogcat](https://tryhackme.com/room/dogcat)  
-**Difficulty:** Hard  
+**Difficulty:** Medium  
 
 ---
 
